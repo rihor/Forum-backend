@@ -1,10 +1,10 @@
 import './bootstrap' // setup env variables
+import 'reflect-metadata' // necessário para o TypeORM
 import express from 'express'
 import cors from 'cors'
-import 'reflect-metadata' // necessário para o TypeORM
-import { createConnection } from 'typeorm'
 
 import routes from './routes'
+import database from './database'
 
 class App {
   public app: express.Application;
@@ -22,7 +22,7 @@ class App {
   }
 
   private async init (): Promise<void> {
-    await createConnection()
+    database.init()
 
     this.app.use(routes)
   }
